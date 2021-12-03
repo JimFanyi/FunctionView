@@ -1,4 +1,4 @@
-<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,12 @@
 		<link href="public/css/bootstrap.min.css" rel="stylesheet">
 		<link href="public/css/style.css" rel="stylesheet">
 		<link href="public/css/bootstrap.font.css" rel="stylesheet">
+
+		<script src="public/js/vue.min.js"></script>
+		<script src="public/js/jquery-3.6.0.min.js"></script>
+		<script src="public/js/bootstrap.min.js"></script>
+		<script src="public/js/function-plot.min.js"></script>
+
 		<title></title>
 		<style type="text/css">
 			* {
@@ -25,16 +31,36 @@
 	</head>
 	<body>
 
-		<div id = "app">
-			<noscript>
-				本工具运行需要JavaScript支持，请不要从QQ中打开该链接，可以尝试：<br>
-				1.从浏览器中打开<br>
-				2.从微信中打开<br>
-			</noscript>
-			<h1>函数图像绘制工具</h1>
 
+	<div id="app">
+		<noscript>
+			本工具运行需要JavaScript语言支持，请不要从QQ中打开该链接，可以尝试：<br>
+			1. 从浏览器打开<br>
+			2. 从微信中打开<br>
+		</noscript>
 
-			<!--函数输入-->
+		<h1>函数图像绘制工具</h1>
+
+		<div class="container">
+			<!-- 设置x和y的范围 -->
+			<div class="row">
+				<div class="col">
+					<div class="input-group">
+						<input type="number" class="form-control" aria-label="min_x" v-model="min_x" id="min_x">
+						<span class="input-group-text">&lt; x &lt;</span>
+						<input type="number" class="form-control" aria-label="max_x" v-model="max_x" id="max_x">
+					</div>
+				</div>
+				<div class="col">
+					<div class="input-group">
+						<input type="number" class="form-control" aria-label="min_y" v-model="min_y" id="min_y">
+						<span class="input-group-text">&lt; y &lt;</span>
+						<input type="number" class="form-control" aria-label="max_y" v-model="max_y" id="max_y">
+					</div>
+				</div>
+			</div>
+
+			<!-- 函数 -->
 			<div id="function_box">
 				<div class="row" id="function_item" v-for="(fun, index) in func_list">
 					<div class="col">
@@ -905,7 +931,37 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- 行为按钮 -->
+				<div class="row">
+					<div class="col">
+						<div class="d-grid gap-2">
+							<button type="button" class="btn btn-outline-primary"
+									v-on:click="add_function()">添加函数</button>
+							<button class="btn btn-primary" type="button" v-on:click="draw_function()">生成图像</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- 版权 -->
+			<div class="row footer_box">
+				<div class="col">
+					<figure class="text-center page_footer">
+						<figcaption class="blockquote blockquote-footer">
+							Copyright © Wenhang Chen 陈文航 版权所有
+						</figcaption>
+					</figure>
+
+				</div>
+			</div>
+
 		</div>
+	</div>
+
+
 		<script src="FunctionPrinter.min.js" type="text/javascript" charset="utf-8"></script>
 		<div id="parent" style="width:100%;height:100%;pointer-events:all;">
 			<canvas id="cvs" width="800" height="800"></canvas>
@@ -1047,5 +1103,7 @@
 			
 			
 		</script>
+
+	<script src="public/js/draw_function.js"></script>
 	</body>
 </html>
